@@ -79,12 +79,12 @@ docker-compose down -v && docker-compose up -d
 ## 📊 Status - Sprint 1
 
 ```
-Progresso: ███░░░░░░░ 20% (2/10)
+Progresso: ████░░░░░░ 30% (3/10)
 ```
 
 - [x] 1.1 - Setup Spring Boot
 - [x] 1.2 - PostgreSQL / Docker
-- [ ] 1.3 - Estrutura MVC
+- [x] 1.3 - Estrutura MVC
 - [ ] 1.4 - CORS e segurança
 - [ ] 1.5 - Modelo Produto
 - [ ] 1.6 - Modelo NotaFiscal
