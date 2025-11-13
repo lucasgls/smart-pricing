@@ -1,4 +1,4 @@
-package controller;
+package com.smartpricing.controller;
 
 import org.springframework.stereotype.Controller;
 

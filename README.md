@@ -29,7 +29,7 @@ Automatize a precificação do seu petshop com:
 
 - Java 21
 - Spring Boot 3.5.7 (Web + Data JPA ...)
-- PostgreSQL 15o
+- PostgreSQL 15
 - Maven
 
 ## ⚙️ Configuração 
@@ -89,6 +89,35 @@ Permite requisições de frontends locais para a API.
 
 **Status:** Será reabilitado na Sprint 2/3 junto com autenticação JWT.
 
+## 📦 Modelo de Dados
+
+### Entidade: Produto
+
+Representa produtos cadastrados no sistema para análise de precificação.
+
+#### Campos da entidade
+
+| Campo         | Tipo          | Descrição                  | Obrigatório                  |
+|---------------|---------------|----------------------------|------------------------------|
+| `id`          | UUID          | Identificador único global | Sim (gerado automaticamente) |
+| `name`        | String(150)   | Nome do produto            | Sim                          |
+| `description` | Text          | Descrição detalhada        | Não                          |
+| `category`    | Enum          | Categoria do produto       | Sim                          |
+| `costPrice`   | Numeric(10,2) | Preço de custo em reais    | Sim                          |
+| `createdAt`   | Timestamp     | Data de criação            | Sim (automático)             |
+| `updatedAt`   | Timestamp     | Última atualização         | Sim (automático)             |
+
+#### Categorias disponíveis
+
+| Enum               | Descrição                            |
+|--------------------|--------------------------------------|
+| `RACAO`            | Alimentos secos e úmidos para pets   |
+| `BRINQUEDOS`       | Brinquedos e itens de entretenimento |
+| `HIGIENE`          | Produtos de higiene e limpeza        |
+| `MEDICAMENTOS`     |  Medicamentos e suplementos          |
+| `ACESSORIOS`       | Coleiras, guias, roupas e acessórios |
+| `CAMA_TRANSPORTE`  | Camas, casinhas, caixas de transporte|
+
 
 ## 🧪 Testes
 
@@ -107,14 +136,14 @@ curl -H "Origin: http://localhost:3000" \
 ## 📊 Status - Sprint 1
 
 ```
-Progresso: █████░░░░░ 40% (4/10)
+Progresso: ██████░░░░ 50% (5/10)
 ```
 
 - [x] 1.1 - Setup Spring Boot
 - [x] 1.2 - PostgreSQL / Docker
 - [x] 1.3 - Estrutura MVC
 - [x] 1.4 - CORS e segurança
-- [ ] 1.5 - Modelo Produto
+- [x] 1.5 - Modelo Produto
 - [ ] 1.6 - Modelo NotaFiscal
 - [ ] 1.7 - Upload XML NF-e
 - [ ] 1.8 - Parser XML
