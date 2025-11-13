@@ -1,4 +1,4 @@
-package model.enums;
+package com.smartpricing.model.enums;
 
 import lombok.Getter;
 
