@@ -111,12 +111,58 @@ Representa produtos cadastrados no sistema para análise de precificação.
 
 | Enum               | Descrição                            |
 |--------------------|--------------------------------------|
-| `RACAO`            | Alimentos secos e úmidos para pets   |
-| `BRINQUEDOS`       | Brinquedos e itens de entretenimento |
-| `HIGIENE`          | Produtos de higiene e limpeza        |
-| `MEDICAMENTOS`     |  Medicamentos e suplementos          |
 | `ACESSORIOS`       | Coleiras, guias, roupas e acessórios |
+| `ALIMENTOS`        | Alimentos secos e úmidos para pets   |
+| `BRINQUEDOS`       | Brinquedos e itens de entretenimento |
 | `CAMA_TRANSPORTE`  | Camas, casinhas, caixas de transporte|
+| `HIGIENE`          | Produtos de higiene e limpeza        |
+| `MEDICAMENTOS`     | Medicamentos e suplementos           |
+| `OUTROS`           | Produtos diversos não categorizados  |
+
+### Entidade: Nota Fiscal (Invoice)
+
+Representa notas fiscais de compra de fornecedores.
+
+#### Campos da entidade
+
+| Campo         | Tipo          | Descrição                     | Obrigatório                  |
+|---------------|---------------|-------------------------------|------------------------------|
+| `id`          | UUID          | Identificador único global    | Sim (gerado automaticamente) |
+| `number`      | String(100)   | Número da nota fiscal         | Sim (único)                  |
+| `supplier`    | String(200)   | Nome do fornecedor            | Sim                          |
+| `issueDate`   | Timestamp     | Data de emissão               | Sim                          |
+| `totalAmount` | Numeric(10,2) | Valor total da nota           | Sim                          |
+| `status`      | Enum          | Status do processamento       | Sim                          |
+| `items`       | Collection    | Itens da nota fiscal          | -                            |
+| `createdAt`   | Timestamp     | Data de criação no sistema    | Sim (automático)             |
+| `updatedAt`   | Timestamp     | Última atualização            | Sim (automático)             |
+
+#### Status disponíveis
+
+| Enum         | Descrição                              |
+|--------------|----------------------------------------|
+| `PENDENTE`   | Aguardando processamento               |
+| `PROCESSADA` | Processada e persistida com sucesso    |
+| `ERRO`       | Erro durante processamento             |
+| `CANCELADA`  | Nota fiscal cancelada                  |
+
+---
+
+### Entidade: Item da Nota Fiscal (InvoiceItem)
+
+Representa cada item/produto presente em uma nota fiscal.
+
+#### Campos da entidade
+
+| Campo        | Tipo          | Descrição                  | Obrigatório |
+|--------------|---------------|----------------------------|-------------|
+| `id`         | UUID          | Identificador único global | Sim (gerado)|
+| `invoice`    | Invoice       | Nota fiscal (FK)           | Sim         |
+| `product`    | Product       | Produto (FK)               | Sim         |
+| `quantity`   | Integer       | Quantidade comprada        | Sim         |
+| `unitPrice`  | Numeric(10,2) | Preço unitário             | Sim         |
+| `totalPrice` | Numeric(10,2) | Preço total (calculado)    | Sim         |
+| `unit`       | String(5)     | Unidade (UN, KG, CX, etc)  | Não         |
 
 
 ## 🧪 Testes
@@ -136,7 +182,7 @@ curl -H "Origin: http://localhost:3000" \
 ## 📊 Status - Sprint 1
 
 ```
-Progresso: ██████░░░░ 50% (5/10)
+Progresso: ███████░░░ 60% (6c/10)
 ```
 
 - [x] 1.1 - Setup Spring Boot
@@ -144,7 +190,7 @@ Progresso: ██████░░░░ 50% (5/10)
 - [x] 1.3 - Estrutura MVC
 - [x] 1.4 - CORS e segurança
 - [x] 1.5 - Modelo Produto
-- [ ] 1.6 - Modelo NotaFiscal
+- [x] 1.6 - Modelo NotaFiscal
 - [ ] 1.7 - Upload XML NF-e
 - [ ] 1.8 - Parser XML
 - [ ] 1.9 - Persistência
