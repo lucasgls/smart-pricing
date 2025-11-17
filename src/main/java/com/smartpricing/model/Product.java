@@ -1,24 +1,27 @@
 package com.smartpricing.model;
 
+import com.smartpricing.model.enums.Category;
 import jakarta.persistence.*;
 import lombok.*;
-import com.smartpricing.model.enums.Category;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "produtos")
+@Table(name = "products")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
-@ToString
-@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString(exclude = "purchaseHistory")
+@EqualsAndHashCode(of = "name")
 public class Product {
 
     @Id
@@ -26,21 +29,20 @@ public class Product {
     @Column(updatable = false, nullable = false)
     private UUID id;
 
-    @NonNull
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 200)
     private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @NonNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
-    private Category category;
+    @Builder.Default
+    private Category category = Category.OUTROS;
 
-    @NonNull
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal costPrice;
+    @Builder.Default
+    private BigDecimal costPrice = BigDecimal.ZERO;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -48,6 +50,9 @@ public class Product {
 
     @UpdateTimestamp
     @Column(nullable = false)
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "product")
+    @Builder.Default
+    private List<InvoiceItem> purchaseHistory = new ArrayList<>();
 }
