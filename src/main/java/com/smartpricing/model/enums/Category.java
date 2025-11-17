@@ -9,5 +9,6 @@ public enum Category {
     BRINQUEDOS,
     CAMA_TRANSPORTE,
     HIGIENE,
-    MEDICAMENTOS
+    MEDICAMENTOS,
+    OUTROS
 }
